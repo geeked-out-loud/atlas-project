@@ -212,16 +212,15 @@ export async function fetchSubreddit(
   }
 
   try {
-    // Use local proxy to avoid CORS issues
-    const targetUrl = `${API_CONFIG.REDDIT.BASE_URL}/r/${subreddit}/${sort}.json?${params}`;
-    const proxyUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
-    
-    const response = await fetch(proxyUrl, {
-      headers: {
-        'User-Agent': 'Atlas Dashboard/1.0',
-      },
-      next: { revalidate: 300 }, // Cache for 5 minutes
-    });
+    const response = await fetch(
+      `${API_CONFIG.REDDIT.BASE_URL}/r/${subreddit}/${sort}.json?${params}`,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        },
+        cache: 'no-store',
+      }
+    );
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -337,13 +336,9 @@ export async function searchReddit(
     : `${API_CONFIG.REDDIT.BASE_URL}/search.json`;
 
   try {
-    // Use local proxy to avoid CORS issues
-    const targetUrl = `${baseUrl}?${params}`;
-    const proxyUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
-
-    const response = await fetch(proxyUrl, {
-      headers: { 'User-Agent': 'Atlas Dashboard/1.0' },
-      next: { revalidate: 300 },
+    const response = await fetch(`${baseUrl}?${params}`, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+      cache: 'no-store',
     });
 
     if (!response.ok) {
