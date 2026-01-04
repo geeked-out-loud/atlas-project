@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Muted Rose */
+  --color-rose-50: #fff7f8;
+  --color-rose-100: #fff0f2;
+  --color-rose-200: #ffe3e6;
+  --color-rose-300: #ffd4d8;
+  --color-rose-400: #ffc3c6;
+  --color-rose-500: #ffb0b3;
+  --color-rose-600: #e08a8d;
+  --color-rose-700: #b96568;
+  --color-rose-800: #8a4043;
+  --color-rose-900: #5d2628;
+  --color-rose-950: #3d1819;
+  
+  /* Greys */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #404040;
+  --color-gray-800: #262626;
+  --color-gray-900: #171717;
+  --color-gray-950: #0a0a0a;
+  
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Light Theme */
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --surface: #ffffff;
+  --surface-secondary: #fafafa;
+  --border: #e5e5e5;
+  --hover: #f5f5f5;
+  --accent: #ffb0b3;
+}
+
+/* Dark Theme */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --surface: #0a0a0a;
+  --surface-secondary: #171717;
+  --border: #262626;
+  --hover: #171717;
+  --accent: #ffb0b3;
+}
+
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
+}
+
+/* Prevent transitions on page load */
+html:not(.loaded) * {
+  transition: none !important;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+html.dark .glass {
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rose-400);
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: var(--color-gray-700);
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rose-600);
 }
